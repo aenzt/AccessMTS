@@ -1,28 +1,36 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-app-bar app dark>
+      <div class="d-flex align-center">
+        <v-toolbar-title>MTsN 4 Vaccine Access</v-toolbar-title>
+      </div>
+      <v-spacer></v-spacer>
+      <strong class="ml-4 mr-4">John Doe</strong>
+      <v-avatar color="primary" size="38">
+        <img
+          alt="Avatar"
+          src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"
+        />
+      </v-avatar>
+      <v-app-bar-nav-icon class="mr-3"></v-app-bar-nav-icon>
+    </v-app-bar>
+    <v-main>
+      <TableData />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TableData from "./components/TableData";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
-</script>
+    TableData,
+  },
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  data: () => ({
+    //
+  }),
+};
+</script>
