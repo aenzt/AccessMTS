@@ -1,4 +1,4 @@
-# myday
+# Web Control For Personal ESP8266 Access
 
 ## Project setup
 ```
