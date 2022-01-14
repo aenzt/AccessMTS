@@ -10,7 +10,8 @@
       <span>{{ new Date(item.entryTime).toLocaleString() }}</span>
     </template>
     <template v-slot:item.exitTime="{ item }">
-      <span>{{ new Date(item.exitTime).toLocaleString() }}</span>
+      <span v-if="item.presence == false">{{ new Date(item.exitTime).toLocaleString() }}</span>
+      <span v-else>Not exit yet</span>
     </template>
     <template v-slot:item.vacStat1="{ item }">
       <v-chip v-if="item.vacStat1 == true" color="green">Vaccinated</v-chip>
@@ -19,6 +20,9 @@
     <template v-slot:item.vacStat2="{ item }">
       <v-chip v-if="item.vacStat2 == true" color="green">Vaccinated</v-chip>
       <v-chip v-else color="red">Not Vaccinated</v-chip>
+    </template>
+    <template v-slot:item.latestTemp="{ item }">
+      <span>{{ item.latestTemp }}</span>
     </template>
     <template v-slot:top>
       <v-toolbar flat>
@@ -104,10 +108,10 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialog = false">
+              <v-btn color="blue darken-1" text>
                 Close
               </v-btn>
-              <v-btn color="blue darken-1" text @click="dialog = false">
+              <v-btn color="blue darken-1" text>
                 Save
               </v-btn>
             </v-card-actions>
@@ -140,6 +144,7 @@ export default {
         { text: "Vaccine Status 2", value: "vacStat2", dataType: "Boolean" },
         { text: "Entry Time", value: "entryTime", dataType: "Date" },
         { text: "Exit Time", value: "exitTime", dataType: "Date" },
+        { text: "Latest Temperature", value: "latestTemp", dataType: "Number"}
       ],
       userData: [],
     };
@@ -164,7 +169,7 @@ export default {
   },
   mounted() {
     this.setTime();
-    this.socket = io("http://localhost:3000/");
+    this.socket = io("https://mday1.herokuapp.com/");
     this.socket.on("update", (data) => {
       this.userData = data;
       console.log(data);
